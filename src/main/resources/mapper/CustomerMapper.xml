@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pangzl.homestay.customer.dao.CustomerDao">
+
+	<insert id="insertCustomer" parameterType="cn.pangzl.homestay.customer.entity.Customer">
+		INSERT INTO customers
+		(
+		cus_name,
+		sex,
+		phone,
+		id_card
+		)
+		values(
+		#{cusName},
+		#{sex},
+		#{phone},
+		#{idCard}
+		)
+	</insert>
+	
+	<select id="getCustomerByIdCard" parameterType="java.lang.String"
+		resultType="cn.pangzl.homestay.customer.entity.Customer">
+		select id,cus_name cusName, sex, phone, id_card idCard from customers where id_card=#{idCard};
+	</select>
+	
+	<select id="getCustomers" resultType="cn.pangzl.homestay.customer.entity.Customer">
+		select id, cus_name cusName, sex, phone, id_card idCard from customers;
+	</select>
+	
+	<update id="updateCustomer" parameterType="cn.pangzl.homestay.customer.entity.Customer">
+		update customers
+		set
+		cus_name=#{cusName}, 
+		sex=#{sex}, 
+		phone=#{phone}, 
+		id_card=#{idCard} where id=#{id};
+	</update>
+	
+	<delete id="deleteCustomerById" parameterType="java.lang.Integer">
+		delete from customers where id=#{id}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

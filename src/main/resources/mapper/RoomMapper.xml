@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pangzl.homestay.room.dao.RoomDao">
+
+	<select id="getRoomById" parameterType="java.lang.Integer"
+		resultType="cn.pangzl.homestay.room.entity.Room">
+		select id, room_num roomNum,room_name roomName,available_num availableNum,bed_type bedType,bed_num bedNum, window, price  from rooms where id=#{id};
+	</select>
+	
+	<select id="getEmptyRooms" resultType="cn.pangzl.homestay.room.entity.Room">
+		select DISTINCT rooms.id, room_num roomNum,room_name roomName,available_num availableNum,bed_type bedType,bed_num bedNum, window, price from rooms, orders where rooms.id not in (select room_id from orders where order_status = 0);
+	</select>
+	
+	<select id="getFullRooms" resultType="cn.pangzl.homestay.room.entity.Room">
+		select DISTINCT rooms.id, room_num roomNum,room_name roomName,available_num availableNum,bed_type bedType,bed_num bedNum, window, price from rooms, orders where rooms.id in (select room_id from orders where order_status = 0);
+	</select>
+	
+	<select id="getRooms" resultType="cn.pangzl.homestay.room.entity.Room">
+		select id, room_num roomNum,room_name roomName,available_num availableNum,bed_type bedType,bed_num bedNum, window, price  from rooms;
+	</select>
+	
+	<insert id="insertRoom" parameterType="cn.pangzl.homestay.room.entity.Room">
+		INSERT INTO rooms
+		(
+		room_num,
+		room_name,
+		available_num,
+		bed_type,
+		bed_num,
+		window,
+		price 
+		)
+		values(
+		#{roomNum},
+		#{roomName},
+		#{availableNum},
+		#{bedType},
+		#{bedNum},
+		#{window},
+		#{price} 
+		)
+	</insert>
+	
+	<delete id="deleteRoom" parameterType="java.lang.Integer">
+		delete from rooms where id=#{id}
+	</delete>
+	
+	<update id="updateRoom" parameterType="cn.pangzl.homestay.room.entity.Room">
+		update rooms
+		set
+		room_num=#{roomNum},
+		room_name=#{roomName},
+		available_num=#{availableNum},
+		bed_Type=#{bedType},
+		bed_num=#{bedNum},
+		window=#{window},
+		price=#{price} 
+		where id=#{id};
+	</update>
+	
+</mapper>

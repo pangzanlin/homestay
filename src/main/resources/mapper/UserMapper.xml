@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pangzl.homestay.user.dao.UserDao">
+
+	<select id="findUserByPhone" parameterType="java.lang.Long"
+		resultType="cn.pangzl.homestay.user.entity.User">
+		select * from users where phone=#{phone};
+	</select>
+	
+	<update id="updateUser" parameterType="cn.pangzl.homestay.user.entity.User">
+		update users
+		set
+		name=#{name},
+		sex=#{sex},
+		phone=#{phone},
+		password=#{password},
+		idCard=#{idCard},
+		registerDate=#{registerDate},
+		lastLoginDate=#{lastLoginDate},
+		loginCount=#{loginCount}, 
+		identity=#{identity} 
+		where id=#{id};
+	</update>
+	
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pangzl.homestay.order.dao.OrderDao">
+
+	<select id="listAllOrder" resultType="cn.pangzl.homestay.order.entity.AllOrder">
+		SELECT DISTINCT 
+		orders.id, 
+		orders.order_code orderCode, 
+		cus.cus_name cusName, 
+		cus.sex, 
+		cus.phone, 
+		cus.id_card idCard, 
+		rooms.room_name roomName, 
+		orders.order_status orderStatus, 
+		orders.amount_paid amountPaid, 
+		orders.deposit, 
+		orders.is_deposit_return isDepositReturn, 
+		orders.start_date startDate, 
+		orders.end_date endDate 
+		FROM 
+			rooms, 
+			orders, 
+			customers cus  
+		WHERE 
+			orders.cus_id_card = cus.id_card and orders.room_id = rooms.id;
+	</select>
+	
+	<insert id="insertOrder" parameterType="cn.pangzl.homestay.order.entity.Order">
+		INSERT INTO orders
+		(
+		order_code,
+		cus_id_card,
+		room_id,
+		order_status,
+		amount_paid,
+		deposit,
+		is_deposit_return,
+		start_date,
+		end_date,
+		follow_cus_id
+		)
+		values(
+		#{orderCode},
+		#{cusIdCard},
+		#{roomId},
+		#{orderStatus},
+		#{amountPaid},
+		#{deposit}, 
+		#{isDepositReturn}, 
+		#{startDate}, 
+		#{endDate}, 
+		#{followCusId} 
+		)
+	</insert>
+	
+</mapper>
